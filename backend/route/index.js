@@ -5,5 +5,4 @@ const employeerouter = require('./employee.route');
 
 router.use(employeerouter);
 
-
 module.exports = router;

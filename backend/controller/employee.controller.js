@@ -5,7 +5,7 @@ async function employyecontroller(req,res){
 
     const employye_exist= await employeeservices.checkemployeeexist(employee)
 
-    if(employee){
+    if(employye_exist){
         return res.status(400).json({
             message:'email already occured'
         })
