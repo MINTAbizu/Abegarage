@@ -1,0 +1,141 @@
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+  padding: 2rem;
+}
+
+.loginFormBox {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  max-width: 400px;
+  width: 50px;
+}
+
+.loginFormBox h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #222;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+.form{
+    width: 500px;
+    text-align: center;
+    margin-right: -200px;
+}
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.formControl {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.formControl:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 0.75rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnPrimary:hover {
+  background: #0056b3;
+}
+.addemployerformcontainer{
+  background-color: #fff;
+  color: black;
+  font-size: 28px;
+  margin-right: 320px;
+}
+.adminleftcontent{
+  background-color: black;
+  color: white;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.login-info{
+  color: white;
+  font-size: 28px;
+  margin-top: 1rem;
+  
+}
+.login-info  span{
+  margin-right: 15px;
+}
+.container{
+  text-align: center;
+}
+.adminleftcontent ul li{
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+.adminleftcontent ul li:hover{
+  background-color: #fff;
+  color: black;
+  cursor: pointer;
+}
+.adminleftcontent ul li a{
+  text-decoration: none;
+  /* color: black; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 500px) {
+  .loginFormBox {
+    padding: 1.5rem 0.5rem;
+    max-width: 95vw;
+  }
+  .loginFormBox h1 {
+    font-size: 1.5rem;
+  }
+}

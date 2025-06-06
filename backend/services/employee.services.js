@@ -1,53 +1,62 @@
-const conn=require('../DB.config.js/Db')
+const conn = require('../DB.config.js/Db');
 const bcrypt = require('bcrypt');
-async function checkemployeeexist(email){
-   const query='SELECT * FROM employee WHERE employee_email= ?'
-
-   const rows = await conn.query(query, [email]);
-return rows.length > 0;
+const {pool}=require('../DB.config.js/Db')
+async function checkemployeeexist(email) {
+    const query = 'SELECT * FROM employee WHERE employee_email= ?';
+    const rows = await conn.query(query, [email]);
+    return rows.length > 0;
 }
 
-
-
-async function createemployee(parms) {
+async function createEmployee(params) {
     const { employee_email, employee_password, active_employee, employee_first_name,
-        employee_last_name, employee_phone, company_role_id,company_role_name	} = parms;
-    const pool = conn.pool; // Get the pool from your DB config
+         employee_last_name, employee_phone, company_role_id } = params;
 
-    const connection = await pool.getConnection();
+    const hashedPassword = await bcrypt.hash(employee_password, 10);
+
+const connection = await pool.getConnection();
+    // console.log(query)
     try {
         await connection.beginTransaction();
+          const query = "INSERT INTO employee (employee_email, active_employee) VALUES (?, ?)";
 
-        const hashedPassword = await bcrypt.hash(employee_password, 10);
+        const result = await conn.query(query, [employee_email, active_employee]);
+        const employee_id = result.insertId;
 
-        const queryemployee = 'INSERT INTO employee (employee_email, active_employee) VALUES (?, ?)';
-        const [result] = await connection.query(queryemployee, [employee_email, active_employee]);
-        const employeeid = result.insertId;
+        const queryInfo = "INSERT INTO employee_info (employee_id, employee_first_name, employee_last_name, employee_phone) VALUES (?, ?, ?, ?)";
+        await conn.query(queryInfo, [employee_id, employee_first_name, employee_last_name, employee_phone]);
 
-        const queryemployeeinfo = 'INSERT INTO employee_info (employee_id, employee_first_name, employee_last_name, employee_phone) VALUES ( ?, ?, ?, ?)';
-        await connection.query(queryemployeeinfo, [employeeid, employee_first_name, employee_last_name, employee_phone]);
+        const queryPassword = "INSERT INTO employee_pass(employee_id, employee_password_hashed) VALUES (?, ?)";
+        await conn.query(queryPassword, [employee_id, hashedPassword]);
 
-        const querypassword = 'INSERT INTO employee_pass (employee_id, employee_password_hashed	) VALUES (?, ?)';
-        await connection.query(querypassword, [employeeid, hashedPassword]);
+        const queryRole = "INSERT INTO employee_role (employee_id, company_role_id) VALUES (?, ?)";
+           await conn.query(queryRole, [employee_id, company_role_id]);
+            await connection.commit();
+        return { employee_id };
 
-        const querycompanyrole = 'INSERT INTO company_roles (company_role_id ,company_role_name	) VALUES (?, ?)';
-        await connection.query(querycompanyrole, [employeeid, company_role_name	]);
-
-        await connection.commit();	
-
-        return { employeeid };
     } catch (error) {
-        await connection.rollback();
-        console.error('Error creating employee:', error);
-        throw new Error('Failed to create employee');
+         await connection.rollback();
+        console.error("Error creating employee:", error);
+        throw error;
     } finally {
-        connection.release();
-    }
+    connection.release();
+}
 }
 
-          
+async function getEmployeeByEmail(employee_email) {
+    const query = `
+        SELECT employee.*, employee_info.*, employee_pass.employee_password_hashed, employee_role.company_role_id
+        FROM employee
+        INNER JOIN employee_info ON employee.employee_id = employee_info.employee_id
+        INNER JOIN employee_pass ON employee.employee_id = employee_pass.employee_id
+        INNER JOIN employee_role ON employee.employee_id = employee_role.employee_id
+        WHERE employee.employee_email = ?
+    `;
+    const rows = await conn.query(query, [employee_email]);
+    return rows;
+}
 
-module.exports={
+module.exports = {
     checkemployeeexist,
-    createemployee
-}
+   createEmployee,
+    getEmployeeByEmail
+};

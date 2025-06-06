@@ -1,0 +1,70 @@
+.add-employee-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.add-employee-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #2a3d66;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.add-employee-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #2a3d66;
+  gap: 0.3rem;
+}
+
+.add-employee-form input,
+.add-employee-form select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f7fafc;
+  transition: border 0.2s;
+}
+
+.add-employee-form input:focus,
+.add-employee-form select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.add-employee-form button[type="submit"] {
+  margin-top: 1rem;
+  padding: 0.8rem 0;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-employee-form button[type="submit"]:hover {
+  background: #125ea2;
+}
+
+@media (max-width: 600px) {
+  .add-employee-form {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .add-employee-form h2 {
+    font-size: 1.3rem;
+  }
+}

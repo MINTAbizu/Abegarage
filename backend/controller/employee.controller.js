@@ -8,13 +8,14 @@ async function employyecontroller(req,res){
     if(employye_exist){
         return res.status(400).json({
             message:'email already occured'
+           
         })
-    }
 
+    }
 
     try {
         const employeedata=req.body
-        const create= await employeeservices.createemployee(employeedata)
+        const create= await employeeservices.createEmployee(employeedata)
 
         return res.status(201).json({
             message:"user registeared"
@@ -29,6 +30,8 @@ async function employyecontroller(req,res){
     }
 
 }
+
 module.exports={
     employyecontroller
+  
 }
