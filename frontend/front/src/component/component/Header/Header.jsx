@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../../assets/assets/images/logo.png'
-import '../Header/header.css'
+import './header.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useAuth } from '../../../context/Contextprovider'
 import { Link } from 'react-router-dom'

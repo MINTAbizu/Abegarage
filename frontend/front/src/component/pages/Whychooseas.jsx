@@ -2,7 +2,7 @@ import React from 'react'
 // import why from '../../../src/assets/template_assets/images/resource/image-4.jpg'
 // import Contact from './Contact'
 import { Link } from 'react-router-dom'
-import Project from '../../component/pages/Project'
+import Project from './Project'
 
 // assets/images/resource/image-4.jpg
 function Whychooseas() {

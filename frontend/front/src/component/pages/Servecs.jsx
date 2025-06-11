@@ -1,5 +1,5 @@
 import React from 'react'
-import Whychooseas from '../../component/pages/Whychooseas'
+import Whychooseas from './Whychooseas'
 
 function Servecs() {
   return (

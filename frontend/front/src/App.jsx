@@ -4,7 +4,7 @@ import './assets/assets/templatecss/css/style.css'
 import './assets/assets/templatecss/css/responsive.css'
 import './assets/assets/templatecss/css/color.css'
 import { Routes,Router, Route } from "react-router-dom";
-// import Footer from "./component/component/footer/Footer"
+import Footer from "./component/component/footer/Footer"
 import Home from "./component/pages/Home"
 import AddEmploye from "./component/pages/Admin/AddEmploye"
 import Loginform from "./component/component/Login/Loginform"
@@ -66,7 +66,7 @@ function App() {
        
 
     </Routes>
-    {/* <Footer/> */}
+    <Footer/>
 
    
     </>

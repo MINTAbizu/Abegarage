@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../assets/assets/styles/custom.css'
-import Servecs from'../../component/pages/Servecs'
+import Servecs from'./Servecs'
 // import Servixes from './Servixes'
 function Home() {
   return (

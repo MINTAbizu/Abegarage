@@ -1,6 +1,6 @@
 import React from 'react'
 import project6 from '../../assets/assets/template_assets/images/resource/project-6.jpg'
-import About from '../../component/pages/About'
+import About from './About'
 
 function Project() {
   return (
