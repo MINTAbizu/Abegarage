@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function Orders() {
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
@@ -11,7 +13,7 @@ function Orders() {
         const fetchOrders = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost:5000/api/orders');
+                const response = await axios.get(`${API_URL}/api/orders`);
                 setOrders(response.data.data || []);
                 setError(null);
             } catch (err) {

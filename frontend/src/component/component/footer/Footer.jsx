@@ -17,7 +17,7 @@ function Footer() {
                       <span className="flaticon-pin"></span>
                     </div>
                     <div className="text">
-                      54B, Tailstoi Town 5238 MT, <br /> La city, IA 522364
+                      Ethiopia, <br /> Addisabeba
                     </div>
                   </div>
                 </div>
@@ -30,7 +30,7 @@ function Footer() {
                       <span className="flaticon-email"></span>
                     </div>
                     <div className="text">
-                      Email us : <br /> <a href="mailto:contact.contact@autorex.com">contact@autorex.com</a>
+                      Email us : <br /> <a href="mailto:contact.contact@autorex.com">contact@mintax.com</a>
                     </div>
                   </div>
                 </div>
@@ -43,7 +43,7 @@ function Footer() {
                       <span className="flaticon-phone"></span>
                     </div>
                     <div className="text">
-                      Call us on : <br /><strong>+ 1800 456 7890</strong>
+                      Call us on : <br /><strong>+ 251 928139334</strong>
                     </div>
                   </div>
                 </div>

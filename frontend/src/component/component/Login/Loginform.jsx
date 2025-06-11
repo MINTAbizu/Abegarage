@@ -50,7 +50,7 @@ function Loginform() {
     if (!flag) return;
 
     try {
-      const response = await fetch('http://localhost:5000/Api/login', {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

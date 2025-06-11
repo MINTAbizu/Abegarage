@@ -5,6 +5,7 @@ import './assets/assets/templatecss/css/responsive.css'
 import './assets/assets/templatecss/css/color.css'
 import { Routes,Router, Route } from "react-router-dom";
 import Footer from "./component/component/footer/Footer"
+import Servecs from './component/pages/Servecs'
 import Home from "./component/pages/Home"
 import AddEmploye from "./component/pages/Admin/AddEmploye"
 import Loginform from "./component/component/Login/Loginform"
@@ -18,6 +19,8 @@ import Vechicle from "./component/pages/Admin/Vechicle"
 import CustomerList from "./component/pages/Admin/customer/CustomerList"
 import CustomerSearchResults from "./component/pages/Admin/customer/CustomerSearchResults"
 import CustomerDetail from "./component/pages/Admin/customer/CustomerDetail"
+import Project from "./component/pages/Project"
+// import Servecs from "./component/pages/Servecs"
 // import CreateOrder from "../../src/components/CreateOrder"
 // import VehicleRegistration from "./"
 // import VehicleRegistration from './component/pages/Admin/VehicleRegistration'
@@ -31,6 +34,12 @@ function App() {
     <Routes>
       
        <Route path="/" element={<Home/>}/>
+    
+         <Route path="/Servecs" element={<Servecs/>}/>
+           <Route path="/Project" element={<Project/>}/>
+             <Route path="/" element={<Home/>}/>
+               <Route path="/" element={<Home/>}/>
+
        <Route path="/Admin/addemployee" element={
            <Protected role={[3]} >   
             <AddEmploye/>
