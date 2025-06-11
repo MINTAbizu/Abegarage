@@ -4,15 +4,6 @@ const orderService = require('../services/order.services');
 const createOrder = async (req, res) => {
     try {
         const orderData = req.body;
-        
-        // Validate required fields
-        if (!orderData.employee_id || !orderData.customer_id || !orderData.vehicle_id || !orderData.order_total_price) {
-            return res.status(400).json({
-                success: false,
-                message: 'Missing required fields: employee_id, customer_id, vehicle_id, and order_total_price are required'
-            });
-        }
-
         const result = await orderService.createOrder(orderData);
         res.status(201).json({
             success: true,
@@ -79,13 +70,6 @@ const updateOrderStatus = async (req, res) => {
         const { order_id } = req.params;
         const { status } = req.body;
 
-        if (!status) {
-            return res.status(400).json({
-                success: false,
-                message: 'Status is required'
-            });
-        }
-
         const result = await orderService.updateOrderStatus(order_id, status);
         
         if (!result) {
@@ -115,13 +99,6 @@ const updateOrderCompletion = async (req, res) => {
         const { order_id } = req.params;
         const { completion_date } = req.body;
 
-        if (!completion_date) {
-            return res.status(400).json({
-                success: false,
-                message: 'Completion date is required'
-            });
-        }
-
         const result = await orderService.updateOrderCompletion(order_id, completion_date);
         
         if (!result) {
@@ -150,13 +127,6 @@ const updateServiceCompletion = async (req, res) => {
     try {
         const { order_id, service_id } = req.params;
         const { completed } = req.body;
-
-        if (completed === undefined) {
-            return res.status(400).json({
-                success: false,
-                message: 'Completed status is required'
-            });
-        }
 
         const result = await orderService.updateServiceCompletion(order_id, service_id, completed);
         
@@ -216,4 +186,4 @@ module.exports = {
     updateOrderCompletion,
     updateServiceCompletion,
     deleteOrder
-};
+}; 

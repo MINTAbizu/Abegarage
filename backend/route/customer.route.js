@@ -1,9 +1,20 @@
-const express=require('express')
-const router=express.Router()
-const customercontroller=require('../controller/customer.controller')
+const express = require('express')
+const router = express.Router()
+const customerController = require('../controller/customer.controller')
 
+// Get all customers
+router.get('/customerlist', customerController.customerlist)
 
-router.post('/admin/addcustomer',customercontroller.addcustomer)
+// Get customer by ID
+router.get('/customer/:id', customerController.getCustomerById)
 
+// Get customer vehicles
+router.get('/customer/:id/vehicles', customerController.getCustomerVehicles)
 
-module.exports=router
+// Create new customer
+router.post('/customer', customerController.addcustomer)
+
+// Delete customer
+router.delete('/customer/:id', customerController.deleteCustomer)
+
+module.exports = router

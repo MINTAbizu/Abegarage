@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function CustomerRegister() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     customer_email: "",
     customer_phone_number: "",
@@ -8,35 +11,59 @@ function CustomerRegister() {
     customer_last_name: "",
     active_customer_status: 1,
   });
-  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [customer, setCustomer] = useState(null);
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const validateForm = () => {
+    if (!form.customer_email || !form.customer_phone_number || 
+        !form.customer_first_name || !form.customer_last_name) {
+      setError("All fields are required");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.customer_email)) {
+      setError("Please enter a valid email address");
+      return false;
+    }
+    if (!/^\d{10}$/.test(form.customer_phone_number.replace(/\D/g, ''))) {
+      setError("Please enter a valid 10-digit phone number");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess("");
     setError("");
-    setCustomer(null);
+    setSuccess("");
+    
+    if (!validateForm()) {
+      return;
+    }
 
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/admin/addcustomer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setSuccess(data.message || "Customer registered!");
-        setCustomer(data.customer);
-      } else {
-        setError(data.message || data.error || "Registration failed.");
+      const response = await axios.post("http://localhost:5000/admin/addcustomer", form);
+      
+      if (response.data) {
+        setSuccess("Customer registered successfully!");
+        // Navigate to vehicle registration with the customer ID
+        setTimeout(() => {
+          navigate(`/vehicle-registration/${response.data.customer.customerid}`);
+        }, 1500);
       }
     } catch (err) {
-      setError("Server error. Please try again.");
+      setError(err.response?.data?.message || "Failed to register customer. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,6 +73,19 @@ function CustomerRegister() {
         <div className="col-12 col-md-8 col-lg-6">
           <div className="card shadow p-4">
             <h2 className="mb-4 text-center">Register Customer</h2>
+            
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+            
+            {success && (
+              <div className="alert alert-success" role="alert">
+                {success}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">First Name</label>
@@ -59,6 +99,7 @@ function CustomerRegister() {
                   placeholder="Enter first name"
                 />
               </div>
+
               <div className="mb-3">
                 <label className="form-label">Last Name</label>
                 <input
@@ -71,6 +112,7 @@ function CustomerRegister() {
                   placeholder="Enter last name"
                 />
               </div>
+
               <div className="mb-3">
                 <label className="form-label">Email</label>
                 <input
@@ -83,10 +125,11 @@ function CustomerRegister() {
                   placeholder="Enter email"
                 />
               </div>
+
               <div className="mb-3">
                 <label className="form-label">Phone Number</label>
                 <input
-                  type="text"
+                  type="tel"
                   className="form-control"
                   name="customer_phone_number"
                   value={form.customer_phone_number}
@@ -95,8 +138,9 @@ function CustomerRegister() {
                   placeholder="Enter phone number"
                 />
               </div>
+
               <div className="mb-3">
-                <label className="form-label">Active Status</label>
+                <label className="form-label">Status</label>
                 <select
                   className="form-select"
                   name="active_customer_status"
@@ -107,45 +151,22 @@ function CustomerRegister() {
                   <option value={0}>Inactive</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-primary w-100">
-                Register
+
+              <button 
+                type="submit" 
+                className="btn btn-primary w-100"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Registering...
+                  </>
+                ) : (
+                  'Register Customer'
+                )}
               </button>
-              {success && <div className="alert alert-success mt-3">{success}</div>}
-              {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
-            {customer && (
-              <div className="mt-4">
-                <h5>Registered Customer:</h5>
-                <table className="table table-bordered table-sm">
-                  <tbody>
-                    <tr>
-                      <th>ID</th>
-                      <td>{customer.customerid}</td>
-                    </tr>
-                    <tr>
-                      <th>First Name</th>
-                      <td>{customer.customer_first_name}</td>
-                    </tr>
-                    <tr>
-                      <th>Last Name</th>
-                      <td>{customer.customer_last_name}</td>
-                    </tr>
-                    <tr>
-                      <th>Email</th>
-                      <td>{customer.customer_email}</td>
-                    </tr>
-                    <tr>
-                      <th>Phone</th>
-                      <td>{customer.customer_phone_number}</td>
-                    </tr>
-                    <tr>
-                      <th>Status</th>
-                      <td>{customer.active_customer_status === 1 ? "Active" : "Inactive"}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            )}
           </div>
         </div>
       </div>
