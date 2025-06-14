@@ -1,24 +1,24 @@
-import Header from "./components/Header/Header"
-import './assets/templatecss/css/bootstrap.css'
-import './assets/templatecss/css/style.css'
-import './assets/templatecss/css/responsive.css'
-import './assets/templatecss/css/color.css'
+import Header from "./component/component/Header/Header"
+import './assets/assets/template_assets/css/bootstrap.css'
+import './assets/assets/templatecss/css/style.css'
+import './assets/assets/templatecss/css/responsive.css'
+import './assets/assets/templatecss/css/color.css'
 import { Routes, Router, Route } from "react-router-dom";
-import Footer from "./components/footer/Footer"
-import Servecs from './components/pages/Servecs'
-import Home from "./components/pages/Home"
-import AddEmploye from "./components/pages/Admin/AddEmploye"
-import Loginform from "./components/Login/Loginform"
-import Unauthorized from "./components/Unauthorized"
-import Protected from "./components/Autorization/Protectedroute"
-import Orders from "./components/pages/Orders"
-import Customer from "./components/pages/Customer"
-import Employess from "./components/pages/Employess"
-import Vechicle from "./components/pages/Admin/Vechicle"
-import CustomerList from "./components/pages/Admin/customer/CustomerList"
-import CustomerSearchResults from "./components/pages/Admin/customer/CustomerSearchResults"
-import CustomerDetail from "./components/pages/Admin/customer/CustomerDetail"
-import Project from "./components/pages/Project"
+import Footer from "./component/component/footer/Footer"
+// import Servecs from './components/pages/Servecs'
+import Home from "./component/pages/Home"
+import AddEmploye from "./component/pages/Admin/AddEmploye"
+import Loginform from "./component/component/Login/Loginform"
+import Unauthorized from "./component/Unauthorized"
+import Protected from "./component/Autorization/Protectedroute"
+import Orders from "./component/pages/Orders"
+import Customer from "./component/pages/Customer"
+import Employess from "./component/pages/Employess"
+import Vechicle from "./component/pages/Admin/Vechicle"
+import CustomerList from "./component/pages/Admin/customer/CustomerList"
+// import CustomerSearchResults from "./components/pages/Admin/customer/CustomerSearchResults"
+import CustomerDetail from "./component/pages/Admin/customer/CustomerDetail"
+import Project from "./component/pages/Project"
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/Servecs" element={<Servecs/>}/>
+        {/* <Route path="/Servecs" element={<Servecs/>}/> */}
         <Route path="/Project" element={<Project/>}/>
         
         <Route path="/Admin/addemployee" element={
