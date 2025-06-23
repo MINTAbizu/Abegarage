@@ -11,6 +11,9 @@ function Loginform() {
   const [passwordError, setPasswordError] = useState('');
   const [servererror, setservererror] = useState('');
 
+  // Use environment variable for API URL
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let flag = true;
@@ -50,7 +53,7 @@ function Loginform() {
     if (!flag) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -63,24 +66,24 @@ function Loginform() {
       const data = await response.json();
       console.log(data)
 
-     if (response.ok) {
-  const employeedata = {
-    employee_token: data.token,
-    employee_id: data.employee_id,
-    employee_first_name: data.employee_firstname,
-    company_role_id: data.company_role_id, // <-- use this key
-  }
-  localStorage.setItem('employee', JSON.stringify(employeedata));
-  setSuccess('Login successful');
-  setError('');
-  setTimeout(() => {
-    navigate('/');
-    window.location.href = '/'
-  }, 2000);
-} else {
-  setError(data.error || 'Login failed');
-  setSuccess('');
-}
+      if (response.ok) {
+        const employeedata = {
+          employee_token: data.token,
+          employee_id: data.employee_id,
+          employee_first_name: data.employee_firstname,
+          company_role_id: data.company_role_id,
+        }
+        localStorage.setItem('employee', JSON.stringify(employeedata));
+        setSuccess('Login successful');
+        setError('');
+        setTimeout(() => {
+          navigate('/');
+          window.location.href = '/'
+        }, 2000);
+      } else {
+        setError(data.error || 'Login failed');
+        setSuccess('');
+      }
 
     } catch (error) {
       setservererror('Server error. Please try again.');

@@ -14,9 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
 const corsOptions = {
-    origin: process.env.VITE_API_URL,
+    origin: [
+        'https://abegarage-xq8a.onrender.com/', // replace with your actual Netlify URL
+        'http://localhost:5173' // for local dev, optional
+    ],
     optionsSuccessStatus: 200,
 };
+app.use(cors(corsOptions));
 app.use(cors(corsOptions));
 
 // Mount all routes through the main router with /api prefix
